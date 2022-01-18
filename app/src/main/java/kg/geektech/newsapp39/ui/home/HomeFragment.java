@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -49,17 +50,20 @@ public class HomeFragment extends Fragment {
                 openFragment();
             }
         });
-        getParentFragmentManager().setFragmentResultListener("rk_news", getViewLifecycleOwner(), new FragmentResultListener() {
+        getParentFragmentManager().setFragmentResultListener(
+                "rk_news", getViewLifecycleOwner(), new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
                 News news =(News) result.getSerializable("news");
+                Toast.makeText(requireContext(),news.getTitle(),Toast.LENGTH_SHORT).show();
 
             }
         });
     }
 
     private void openFragment() {
-        NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+        NavController navController = Navigation.findNavController(
+                requireActivity(), R.id.nav_host_fragment_activity_main);
         navController.navigate(R.id.newsFragment);
     }
 }
